@@ -12,3 +12,17 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.social[aria-label]').forEach(el=>{const k=el.getAttribute('aria-label');if(icons[k])el.innerHTML=icons[k]});
   document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();const b=f.querySelector('button[type=submit]');if(b){b.textContent='Request received';b.disabled=true}alert('Demo form only. Connect this form to your CRM, email provider, or scheduling workflow before launch.')}));
 });
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const map=document.querySelector('#serviceMap');
+  const name=document.querySelector('#mapCityName');
+  const link=document.querySelector('#mapCityLink');
+  document.querySelectorAll('.map-city').forEach(btn=>btn.addEventListener('click',()=>{
+    const city=btn.dataset.city;
+    document.querySelectorAll('.map-city').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    if(map) map.src='https://www.google.com/maps?q='+encodeURIComponent(city)+'&z=12&output=embed';
+    if(name) name.textContent=city.replace(', FL','');
+    if(link){link.href=btn.dataset.href;link.textContent='View '+city.replace(', FL','')+' page'}
+  }))
+})
